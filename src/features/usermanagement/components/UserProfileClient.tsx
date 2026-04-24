@@ -47,7 +47,7 @@ export default function UserProfileClient() {
           )}
 
           {activeTab === "companyInfo" && (
-            <CompanyInfoForm profileData={profileData} user={user} />
+            <CompanyInfoForm />
           )}
         </div>
 

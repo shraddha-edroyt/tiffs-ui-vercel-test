@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useApi } from "./layout"; 
+import { useApi } from "@/features/apiplayground/hooks/useApi"; 
 import TabBar from "@/features/apiplayground/component/TabBar";
 import UrlBar from "@/features/apiplayground/component/UrlBar";
 import RequestPanel from "@/features/apiplayground/component/RequestPanel";

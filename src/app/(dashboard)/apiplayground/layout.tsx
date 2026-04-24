@@ -1,32 +1,16 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { useState } from "react";
 import Sidebar from "@/features/apiplayground/component/Sidebar";
+import { ApiContext } from "@/features/apiplayground/hooks/useApi";
+import type { ApiContextType } from "@/features/apiplayground/hooks/useApi";
 
-// --- Types (Yahan pe define ya import karein) ---
+
 type RequestTab = { id: string; name: string; method: string; url: string; };
 type SavedResponse = { id: string; name: string; data: any; status: string; time: string; size: string; };
 type Request = { id: string; name: string; method: string; url: string; savedResponses?: SavedResponse[]; };
 type Folder = { id: string; name: string; requests: Request[]; isExpanded?: boolean; };
 type Collection = { id: string; name: string; folders: Folder[]; };
-
-type ApiContextType = {
-  tabs: RequestTab[];
-  activeTab: string;
-  collections: Collection[];
-  addTab: (tab?: Partial<RequestTab>) => void;
-  setActiveTab: (id: string) => void;
-  updateTab: (id: string, data: Partial<RequestTab>) => void;
-  removeTab: (id: string) => void;
-  addCollection: (name: string) => void;
-  addFolder: (collectionId: string, name: string) => void;
-  addRequest: (collectionId: string, folderId: string | null, request: Partial<Request>) => void;
-  toggleFolder: (collectionId: string, folderId: string) => void;
-  saveResponse: (requestId: string, response: any, status: string, time: string, size: string) => void;
-};
-
-const ApiContext = createContext<ApiContextType>(null as any);
-export const useApi = () => useContext(ApiContext);
 
 export default function ApisLayout({ children }: { children: React.ReactNode }) {
   // Sidebar Toggle State
@@ -121,10 +105,12 @@ export default function ApisLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <ApiContext.Provider
-      value={{
-        tabs, activeTab, collections, addTab, setActiveTab, updateTab, removeTab,
-        addCollection, addFolder, addRequest, toggleFolder, saveResponse
-      }}
+      value={
+        {
+          tabs, activeTab, collections, addTab, setActiveTab, updateTab, removeTab,
+          addCollection, addFolder, addRequest, toggleFolder, saveResponse
+        } as ApiContextType
+      }
     >
       <div className="flex h-screen bg-white ">
         
